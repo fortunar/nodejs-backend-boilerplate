@@ -1,6 +1,6 @@
 import models from '../../models'
 import epilogue from 'epilogue'
-import {auth, logger} from './../handlers'
+import {auth, logger} from './../interceptors'
 
 
 export default function(){
