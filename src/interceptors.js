@@ -1,9 +1,16 @@
 import {logger} from './logger'
+import jwt from 'jsonwebtoken'
 
 export const auth = {
     list: {
-      fetch: function(req, res, context) {
-        logger.info('Bano je car.',{king:true,vosu:false});
+      auth: function(req, res, context) {
+
+        try {
+          //TODO check role permissions
+          const decoded = jwt.verify(req.headers.token, 'secret');
+        } catch(err) {
+          return context.error(401, "Not authenticated.");
+        }
         return context.continue;
       }
     }
