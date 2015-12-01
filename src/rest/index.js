@@ -4,7 +4,7 @@ import {auth, logger} from './../interceptors'
 import dbconfig from './../../config/DBConfig'
 import express from 'express'
 import login from './../login'
-
+import jwt from 'jsonwebtoken'
 
 export default function(App){
 

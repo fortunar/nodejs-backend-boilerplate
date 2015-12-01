@@ -5,7 +5,6 @@ import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
 import initRest from './src/rest/index'
 
-import jwt from 'jsonwebtoken'
 import passport from 'passport'
 
 

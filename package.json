@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon --exec DEBUG=* babel-node ./bin/www",
     "mongo-start": "mongod --config ./config/mongo.config",
-    "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js  --recursive",
+    "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive",
     "test:watch": "npm run test -- --watch"
   },
   "keywords": [],
@@ -40,6 +40,7 @@
     "sequelize": "^3.13.0",
     "sequelize-cli": "^2.1.0",
     "serve-favicon": "~2.2.1",
+    "supertest": "^1.1.0",
     "winston": "^2.1.1",
     "winston-mongodb": "^1.2.0"
   }
