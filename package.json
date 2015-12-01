@@ -33,6 +33,8 @@
     "epilogue": "^0.6.5",
     "express": "~4.12.4",
     "morgan": "~1.5.3",
+    "passport": "^0.3.2",
+    "passport-google-oauth": "^0.2.0",
     "pg": "^4.4.3",
     "pg-hstore": "^2.3.2",
     "sequelize": "^3.13.0",
