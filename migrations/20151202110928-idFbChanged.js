@@ -8,16 +8,30 @@ module.exports = {
       {
         type: Sequelize.BIGINT
       }
-    )
+    );
+    queryInterface.changeColumn(
+      'users',
+      'id_gmail',
+      {
+        type: Sequelize.STRING
+      }
+    );
   },
 
   down: function (queryInterface, Sequelize) {
-    /*
-      Add reverting commands here.
-      Return a promise to correctly handle asynchronicity.
-
-      Example:
-      return queryInterface.dropTable('users');
-    */
+    queryInterface.changeColumn(
+      'users',
+      'id_fb',
+      {
+        type: Sequelize.INTEGER
+      }
+    );
+    queryInterface.changeColumn(
+      'users',
+      'id_gmail',
+      {
+        type: Sequelize.BIGINT
+      }
+    );
   }
 };

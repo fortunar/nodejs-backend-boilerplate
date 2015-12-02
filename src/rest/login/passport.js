@@ -46,23 +46,26 @@ export default function (passport) {
       callbackURL:  conf.login.googleAuth.callbackURL
     },
     function(token, tokenSecret, profile, done) {
-      console.log(profile);
-      // models.users.findOne({ 'where' : {'id_gmail' : profile.id }}).then(function(user) {
-      //   if(user) {
-      //     return done(null, user);
-      //   } else {
-      //     models.users.sync().then(function () {
-      //       return models.users.create({
-      //         name: profile.name.givenName,
-      //         surname: profile.name.familyName,
-      //         id_fb: profile.id,
-      //         email: profile.emails[0].value
-      //       })
-      //     }).then(function(user) {
-      //       return done(null, user);
-      //     });
-      //   }
-      // });
+      console.log('Check db for existing user');
+      models.users.findOne({ 'where' : {'id_gmail' : profile.id }}).then(function(user) {
+        if(user) {
+          return done(null, user);
+        } else {
+          models.users.sync().then(function () {
+            return models.users.create({
+              name: profile.name.givenName,
+              surname: profile.name.familyName,
+              id_gmail: profile.id,
+              email: profile.emails[0].value,
+              //TODO remove if possible
+              mobile_verified : false
+
+            })
+          }).then(function(user) {
+            return done(null, user);
+          });
+        }
+      });
     }
   ));
 

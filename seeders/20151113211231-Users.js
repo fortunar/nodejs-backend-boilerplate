@@ -5,24 +5,16 @@ const users = [{
   surname: 'Potrebujes',
   email: 'joze.potrebuje@gmail.com',
   mobile_verified: false,
+  password: 'joze',
   mobile: '041370705',
   createdAt: new Date(),
   updatedAt: new Date()
 },
 {
-  name: 'Marjan',
-  surname: 'Maroft',
-  email: 'mare.maroft@gmail.com',
-  mobile_verified: false,
-  mobile: '040404040',
-  createdAt: new Date(),
-  updatedAt: new Date()
-
-},
-{
   name: 'Igor',
   surname: 'Kristofic',
   email: 'igor.kristofic@gmail.com',
+  password: 'igor',
   mobile_verified: false,
   mobile: '040404878',
   createdAt: new Date(),
@@ -37,6 +29,11 @@ module.exports = {
   },
 
   down: function (queryInterface, Sequelize) {
-      return queryInterface.bulkDelete('users', null, {});
+      return queryInterface.bulkDelete('users',
+        {email : {
+            $in: ['joze.potrebuje@gmail.com', 'igor.kristofic@gmail.com' ]
+          }
+        }
+      , {});
   }
 };

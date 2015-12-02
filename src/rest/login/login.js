@@ -36,7 +36,7 @@ export default function (passport) {
 
   router.get('/google',
     function(req, res, next) {
-      passport.authenticate('google', { scope: 'https://www.google.com/m8/feeds' }, function(err, user, message) {
+      passport.authenticate('google', { scope: 'https://www.google.com/m8/feeds https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/plus.me' }, function(err, user, message) {
         if(err || !user){
           res.status(401);
         }

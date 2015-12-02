@@ -6,7 +6,9 @@
   "scripts": {
     "start": "nodemon --exec DEBUG=* babel-node ./bin/www",
     "db-migrate": "sequelize db:migrate",
+    "db-migrate-undo": "sequelize db:migrate:undo",
     "db-seed": "sequelize db:seed",
+    "db-seed-undo": "sequelize db:seed:undo",
     "mongo-start": "mongod --config ./config/mongo.config",
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive",
     "test:watch": "npm run test -- --watch"
