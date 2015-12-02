@@ -16,31 +16,33 @@ describe('auth', () => {
       });
   });
 
-  // it('responds to authorized request', function(done){
-  //   var token;
-  //   //first perform login
-  //   request(App)
-  //     .get('/login/local')
-  //     .set('Accept', 'application/json')
-  //     .send({username: })
-  //     .expect(200)
-  //     .end(function(err, res){
-  //       token = res.body.token;
-  //       if (err) {
-  //         return done(err)
-  //         // if successful test the protected endpoint
-  //       }else{
-  //         request(App)
-  //           .get('/users')
-  //           .set('token' , token)
-  //           .expect(200)
-  //           .end(function(err, res){
-  //             if (err) return done(err);
-  //             done();
-  //           });
-  //       }
-  //     });
-  //
-  // });
+  it('responds to authorized request', function(done){
+    var token;
+    //first perform login
+    request(App)
+      .post('/login/local')
+      .set('Accept', 'application/json')
+      // this user is already in the database
+      .send({email: 'joze.potrebuje@gmail.com', password: 'joze'})
+      .expect(200)
+      .end(function(err, res){
+        token = res.body.token;
+        if (err) {
+          return done(err)
+          // if successful test the protected endpoint
+        }else{
+          console.log(token);
+          request(App)
+            .get('/users')
+            .set('token' , token)
+            .expect(200)
+            .end(function(err, res){
+              if (err) return done(err);
+              done();
+            });
+        }
+      });
+
+  });
 
 });

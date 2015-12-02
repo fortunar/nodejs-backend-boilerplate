@@ -7,7 +7,6 @@ module.exports = {
       'mobile_verified',
       {
         type: Sequelize.BOOLEAN,
-        allowNull: false,
         defaultValue: false
       }
     )

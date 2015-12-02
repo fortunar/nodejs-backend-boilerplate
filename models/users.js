@@ -25,8 +25,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     },
     mobile_verified: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false
+      type: DataTypes.BOOLEAN
     },
     id_fb: {
       type: DataTypes.INTEGER,

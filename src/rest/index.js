@@ -22,6 +22,9 @@ export default function(App, passport){
 
   App.use('/login', login(passport));
 
+  App.get('/', function(req,res){
+    res.write("We are aroundSLO!");
+  });
 
   var users = epilogue.resource({
     model: models.users,

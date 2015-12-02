@@ -30,7 +30,7 @@ module.exports = {
       'users',
       'id_gmail',
       {
-        type: Sequelize.BIGINT
+        type: Sequelize.INTEGER
       }
     );
   }

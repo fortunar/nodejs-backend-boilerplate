@@ -56,10 +56,7 @@ export default function (passport) {
               name: profile.name.givenName,
               surname: profile.name.familyName,
               id_gmail: profile.id,
-              email: profile.emails[0].value,
-              //TODO remove if possible
-              mobile_verified : false
-
+              email: profile.emails[0].value
             })
           }).then(function(user) {
             return done(null, user);
@@ -70,7 +67,7 @@ export default function (passport) {
   ));
 
   passport.use(new LocalStrategy({
-      usernameField: 'username',
+      usernameField: 'email',
       passwordField: 'password',
       passReqToCallback: true,
       session: false

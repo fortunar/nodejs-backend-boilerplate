@@ -1,6 +1,6 @@
 import {logger} from './../../logger'
 import express from 'express'
-import {createToken} from './../../token_helper'
+import {createToken} from './../../auth'
 
 export default function (passport) {
   const router = express.Router();
@@ -35,7 +35,8 @@ export default function (passport) {
     function(req, res, next) {
       passport.authenticate('google', { failureRedirect: '/login' }, function(err, user, message) {
         if(err || !user) {
-          res.status(401)
+          res.status(401);
+          res.send(err);
         } else {
           res.json({
             user: user,
@@ -44,8 +45,6 @@ export default function (passport) {
         }
       })(req,res,next);
     });
-
-
 
   router.post('/local',
     function(req, res, next){
