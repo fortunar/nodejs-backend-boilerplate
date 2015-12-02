@@ -9,23 +9,41 @@ export default function (passport) {
   passport.use(new facebook.Strategy({
     clientID        : config.login.facebookAuth.clientID,
     clientSecret    : config.login.facebookAuth.clientSecret,
-    callbackURL     : config.login.facebookAuth.callbackURL
+    callbackURL     : config.login.facebookAuth.callbackURL,
+    profileFields: ['id', 'displayName', 'name', 'emails']
   }, function(token, refreshToken, profile, done) {
-    models.users.findOne({ 'id_fb' : profile.id }, function(err, user) {
-      if(err) {
-        done(err);
-      }
-      if(user) {
-        return done(err, user);
-      } else {
-        return models.users.create({
-          name: profile.name.givenName,
-          lastname: profile.name.lastname,
-          id_fb: profile.id,
-          email: profile.emails[0].value
+    console.log("TLE");
+    // models.users.findOne({ 'where' : {'id_fb' : profile.id }}).then(function(user) {
+      console.log("BRAVO");
+
+      // if(!user) {
+      //   done(err);
+      // }
+      // if(user) {
+      //   return done(err, user);
+      // } else {
+        console.log(profile);
+        models.users.sync().then(function () {
+          // Table created
+          return models.users.create({
+            name: profile.name.givenName,
+            surname: profile.name.familyName,
+            id_fb: 123,
+            email: profile.emails[0].value,
+            mobile_verified: false
+          })
+        }).then(function(user) {
+          console.log(user);
+          done(null, user);
         });
-      }
-    });
+
+
+
+
+      // }
+    // });
+    console.log("LEGENDA");
+
   }));
 
 }

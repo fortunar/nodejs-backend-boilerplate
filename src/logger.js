@@ -1,15 +1,17 @@
 // import winston from 'winston'
 import winston from 'winston';
 import winstonMongodb from 'winston-mongodb';
-import dbconfig from './../config/config.json';
+import config from './../config/config.json';
+
+const conf = config[process.env.NODE_ENV || 'development']
 
 export const logger = new (winston.Logger)({
   transports: [
     new(winston.transports.MongoDB)({
-        db : dbconfig.mongodb.db,
+        db : config.mongodb.db,
         collection: 'logsTest',
-        capped: dbconfig.mongodb.capped,
-        cappedSize: dbconfig.mongodb.cappedSize
+        capped: config.mongodb.capped,
+        cappedSize: config.mongodb.cappedSize
     }),
     new (winston.transports.Console)(),
   ]

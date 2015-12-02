@@ -5,6 +5,8 @@
   "main": "App.js",
   "scripts": {
     "start": "nodemon --exec DEBUG=* babel-node ./bin/www",
+    "db-migrate": "sequelize db:migrate",
+    "db-seed": "sequelize db:seed",
     "mongo-start": "mongod --config ./config/mongo.config",
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive",
     "test:watch": "npm run test -- --watch"
@@ -33,6 +35,7 @@
     "debug": "~2.2.0",
     "epilogue": "^0.6.5",
     "express": "~4.12.4",
+    "jsonwebtoken": "^5.4.1",
     "morgan": "~1.5.3",
     "passport-facebook": "^2.0.0",
     "passport": "^0.3.2",
