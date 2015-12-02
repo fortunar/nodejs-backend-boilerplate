@@ -1,16 +1,16 @@
 import facebook from 'passport-facebook'
 import LocalStrategy from 'passport-local'
 import models from '../../../models'
-import config from './../../../config/config.json'
+import config from './../../../config/app_config.json'
 
 const conf = config[process.env.NODE_ENV || 'development']
 
 export default function (passport) {
 
   passport.use(new facebook.Strategy({
-    clientID        : config.login.facebookAuth.clientID,
-    clientSecret    : config.login.facebookAuth.clientSecret,
-    callbackURL     : config.login.facebookAuth.callbackURL,
+    clientID        : conf.login.facebookAuth.clientID,
+    clientSecret    : conf.login.facebookAuth.clientSecret,
+    callbackURL     : conf.login.facebookAuth.callbackURL,
     profileFields: ['id', 'displayName', 'name', 'emails']
   }, function(token, refreshToken, profile, done) {
     console.log("TLE");
@@ -54,9 +54,9 @@ export default function (passport) {
       passReqToCallback: true,
       session: false
     },
-    function(req, username, password, done) {
+    function(req, email, password, done) {
       models.users.findOne({
-        where: {"email" : username, "password": password}
+        where: {"email" : email, "password": password}
       }).then(function(user) {
         if(user === null){
             return done(null, null, {message :"Wrong username or password."});

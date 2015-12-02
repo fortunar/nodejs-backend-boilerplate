@@ -1,0 +1,44 @@
+{
+  "development": {
+    "login": {
+      "facebookAuth" : {
+          "clientID"      : "200261066974972",
+          "clientSecret"  : "87371a72b17ce48e56b5de02e41e8abb",
+          "callbackURL"  : "http://localhost:3000/login/facebook/callback"
+      }
+    },
+    "mongodb": {
+      "db": "mongodb://127.0.0.1:27017",
+      "capped": true,
+      "cappedSize": 100000
+    }
+  },
+  "test": {
+    "login": {
+      "facebookAuth" : {
+          "clientID"      : "200261066974972",
+          "clientSecret"  : "87371a72b17ce48e56b5de02e41e8abb",
+          "callbackURL"  : "http://localhost:3000/login/facebook/callback"
+      }
+    },
+    "mongodb": {
+      "db": "mongodb://127.0.0.1:27017",
+      "capped": true,
+      "cappedSize": 100000
+    }
+  },
+  "production": {
+    "login": {
+      "facebookAuth" : {
+          "clientID"      : "200261066974972",
+          "clientSecret"  : "87371a72b17ce48e56b5de02e41e8abb",
+          "callbackURL"  : "http://localhost:3000/login/facebook/callback"
+      }
+    },
+    "mongodb": {
+      "db": "mongodb://127.0.0.1:27017",
+      "capped": true,
+      "cappedSize": 100000
+    }
+  }
+}
