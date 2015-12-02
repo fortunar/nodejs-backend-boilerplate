@@ -1,11 +1,15 @@
-import models from '../../models'
+import config from './../../config/config.json';
+import Sequelize from 'sequelize'
 import epilogue from 'epilogue'
-import {auth, logger} from './../interceptors'
-import dbconfig from './../../config/DBConfig'
 import express from 'express'
 import jwt from 'jsonwebtoken'
-import login from './login/login'
-import passportStrategyInit from './login/passport'
+
+import models from '../../models'
+import {auth, logger} from './../interceptors'
+import login from './../login'
+import initLoginStrategies from './../login'
+
+const conf = config[process.env.NODE_ENV || 'development'];
 
 export default function(App, passport){
 
@@ -13,7 +17,7 @@ export default function(App, passport){
 
   epilogue.initialize({
     app: App,
-    sequelize: dbconfig
+    sequelize: new Sequelize(conf.database, conf.username, conf.password, conf)
   });
 
 
@@ -28,6 +32,7 @@ export default function(App, passport){
   // });
 
   App.use('/login', login(passport));
+
 
   var users = epilogue.resource({
     model: models.users,

@@ -26,5 +26,16 @@ export default function (passport) {
       res.redirect('/');
     });
 
+  router.post('/local',
+    function(req, res, next){
+      passport.authenticate('local', function(err, user, message){
+        if(err || !user){
+          res.status(401);
+        }
+        return res.send(message);
+      })(req,res, next);
+    }
+  );
+
   return router;
 }

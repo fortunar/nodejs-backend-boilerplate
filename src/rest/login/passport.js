@@ -1,4 +1,5 @@
 import facebook from 'passport-facebook'
+import LocalStrategy from 'passport-local'
 import models from '../../../models'
 import config from './../../../config/app_config.json'
 
@@ -38,5 +39,26 @@ export default function (passport) {
       }
     });
   }));
+
+
+  passport.use(new LocalStrategy({
+      usernameField: 'username',
+      passwordField: 'password',
+      passReqToCallback: true,
+      session: false
+    },
+    function(req, email, password, done) {
+      models.users.findOne({
+        where: {"email" : email, "password": password}
+      }).then(function(user) {
+        if(user === null){
+            return done(null, null, {message :"Wrong username or password."});
+        }
+        return done(null, user , {message:"User authenticated."});
+      })
+    }
+  ));
+
+
 
 }
