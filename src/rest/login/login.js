@@ -60,8 +60,6 @@ export default function (passport) {
       })(req,res,next);
     });
 
-
-
   router.post('/local',
     function(req, res, next){
       passport.authenticate('local', function(err, user, message){
