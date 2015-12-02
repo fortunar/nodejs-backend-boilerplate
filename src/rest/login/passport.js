@@ -6,44 +6,37 @@ const conf = config[process.env.NODE_ENV || 'development']
 
 export default function (passport) {
 
+  passport.serializeUser(function(user, done) {
+    done(null, user);
+  });
+
+  passport.deserializeUser(function(user, done) {
+    done(null, user);
+  });
+
   passport.use(new facebook.Strategy({
     clientID        : conf.login.facebookAuth.clientID,
     clientSecret    : conf.login.facebookAuth.clientSecret,
     callbackURL     : conf.login.facebookAuth.callbackURL,
-    profileFields: ['id', 'displayName', 'name', 'emails']
+    profileFields   : ['id', 'displayName', 'name', 'emails']
   }, function(token, refreshToken, profile, done) {
-    console.log("TLE");
-    // models.users.findOne({ 'where' : {'id_fb' : profile.id }}).then(function(user) {
-      console.log("BRAVO");
-
-      // if(!user) {
-      //   done(err);
-      // }
-      // if(user) {
-      //   return done(err, user);
-      // } else {
-        console.log(profile);
+    models.users.findOne({ 'where' : {'id_fb' : profile.id }}).then(function(user) {
+      if(user) {
+        return done(null, user);
+      } else {
         models.users.sync().then(function () {
-          // Table created
           return models.users.create({
             name: profile.name.givenName,
             surname: profile.name.familyName,
-            id_fb: 123,
+            id_fb: profile.id,
             email: profile.emails[0].value,
             mobile_verified: false
           })
         }).then(function(user) {
-          console.log(user);
-          done(null, user);
+          return done(null, user);
         });
-
-
-
-
-      // }
-    // });
-    console.log("LEGENDA");
-
+      }
+    });
   }));
 
 }

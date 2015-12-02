@@ -6,15 +6,23 @@ export default function (passport) {
 
   // request facebook login
   router.get('/facebook',
-    passport.authenticate('facebook', { scope: 'email'}));
+    function(req, res, next) {
+      passport.authenticate('facebook', { scope: 'email' }, function(err, user, message){
+          if(err || !user){
+            res.status(401);
+          }
+          return res.send(message);
+        })(req, res, next);
+    }
+  );
+
+
 
   // facebook login callback
   router.get('/facebook/callback',
     passport.authenticate('facebook', { failureRedirect: '/login' }),
     function(req, res) {
       // Successful authentication, redirect home.
-
-      console.log("BRAVO");
       res.redirect('/');
     });
 
