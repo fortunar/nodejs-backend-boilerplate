@@ -11,7 +11,7 @@ var db        = {};
 if (conf.use_env_variable) {
   var sequelize = new Sequelize(process.env[conf.use_env_variable]);
 } else {
-  var sequelize = new Sequelize(conf.postgresdb.database, conf.postgresdb.username, conf.postgresdb.password, conf.postgresdb);
+  var sequelize = new Sequelize(conf.database, conf.username, conf.password, conf);
 }
 
 fs

@@ -1,15 +1,15 @@
 import facebook from 'passport-facebook'
 import models from '../../../models'
-import config from './../../../config/config.json'
+import config from './../../../config/app_config.json'
 
 const conf = config[process.env.NODE_ENV || 'development']
 
 export default function (passport) {
 
   passport.use(new facebook.Strategy({
-    clientID        : config.login.facebookAuth.clientID,
-    clientSecret    : config.login.facebookAuth.clientSecret,
-    callbackURL     : config.login.facebookAuth.callbackURL,
+    clientID        : conf.login.facebookAuth.clientID,
+    clientSecret    : conf.login.facebookAuth.clientSecret,
+    callbackURL     : conf.login.facebookAuth.callbackURL,
     profileFields: ['id', 'displayName', 'name', 'emails']
   }, function(token, refreshToken, profile, done) {
     console.log("TLE");
