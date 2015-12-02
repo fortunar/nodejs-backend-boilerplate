@@ -1,22 +1,27 @@
-import models from '../../models'
+import config from './../../config/config.json';
+import Sequelize from 'sequelize'
 import epilogue from 'epilogue'
-import {auth, logger} from './../interceptors'
-import dbconfig from './../../config/DBConfig'
 import express from 'express'
-import login from './../login'
 import jwt from 'jsonwebtoken'
+
+import models from '../../models'
+import {auth, logger} from './../interceptors'
+import login from './../login'
 import initLoginStrategies from './../login'
+
+const conf = config[process.env.NODE_ENV || 'development'];
 
 export default function(App, passport){
 
+  passportStrategyInit(passport);
+
   epilogue.initialize({
     app: App,
-    sequelize: dbconfig
+    sequelize: new Sequelize(conf.database, conf.username, conf.password, conf)
   });
 
-  // const routes = express.Router();
-  //
-  // routes.get('/', function(req,res){
+
+  // App.use('/', function(req,res){
   //   var token = jwt.sign({user:"marko"}, "secret", {
   //           expiresInMinutes: 2
   //         });
@@ -25,29 +30,8 @@ export default function(App, passport){
   //     token: token
   //   })
   // });
-  //
-  //
-  // App.use('/login', routes);
 
-  initLoginStrategies(passport);
-
-  App.use(function(err, req, res, next) {
-    console.error(err.stack);
-    res.status(500).send('Something broke!');
-  });
-
-  App.post('/login',
-    function(req, res, next){
-      console.log("before auth");
-      passport.authenticate('local', function(err, user, message){
-        if(err || !user){
-          res.status(401);
-        }
-        return res.send(message);
-      })(req,res, next);
-    }
-  );
-
+  App.use('/login', login(passport));
 
 
   var users = epilogue.resource({

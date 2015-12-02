@@ -28,3 +28,5 @@ node_modules
 config/config.json
 config/mongo.config
 npm-debug.log
+
+/mongodb/data
