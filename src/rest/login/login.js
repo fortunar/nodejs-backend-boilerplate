@@ -7,14 +7,7 @@ export default function (passport) {
 
   // request facebook login
   router.get('/facebook',
-    function(req, res, next) {
-      passport.authenticate('facebook', { scope: 'email' }, function(err, user, message){
-          if(err || !user){
-            res.status(401);
-          }
-          return res.send(message);
-        })(req, res, next);
-    }
+      passport.authenticate('facebook', { scope: 'email' })
   );
 
   // facebook login callback
@@ -35,20 +28,12 @@ export default function (passport) {
   );
 
   router.get('/google',
-    function(req, res, next) {
-      passport.authenticate('google', { scope: 'https://www.google.com/m8/feeds https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/plus.me' }, function(err, user, message) {
-        if(err || !user){
-          res.status(401);
-        }
-        return res.send(message);
-      })(req, res, next);
-    }
+      passport.authenticate('google', { scope: 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email' })
   );
 
   router.get('/google/callback',
     function(req, res, next) {
       passport.authenticate('google', { failureRedirect: '/login' }, function(err, user, message) {
-        console.log(err);
         if(err || !user) {
           res.status(401)
         } else {
@@ -67,12 +52,13 @@ export default function (passport) {
       passport.authenticate('local', function(err, user, message){
         if(err || !user){
           res.status(401);
+          res.send(message);
+        }else{
+          res.json({
+            user: user,
+            token: createToken(user)
+          });
         }
-
-        res.json({
-          user: user,
-          token: createToken(user)
-        });
       })(req,res, next);
     }
   );

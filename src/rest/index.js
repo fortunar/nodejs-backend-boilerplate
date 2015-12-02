@@ -22,17 +22,6 @@ export default function(App, passport){
 
   App.use('/login', login(passport));
 
-  App.get('/', function(req,res){
-    var token = jwt.sign({user:"marko"}, "secret", {
-            expiresInMinutes: 2
-          });
-    res.json({
-      user:"bano",
-      token: token
-    })
-  });
-
-
 
   var users = epilogue.resource({
     model: models.users,
