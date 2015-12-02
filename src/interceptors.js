@@ -1,5 +1,6 @@
 import {logger} from './logger'
 import jwt from 'jsonwebtoken'
+import {tokenCheck} from './token_helper'
 
 export const auth = {
   list: {
@@ -7,7 +8,7 @@ export const auth = {
 
       try {
         //TODO check role permissions
-        const decoded = jwt.verify(req.headers.token, 'secret');
+        const decoded = tokenCheck(req.headers.token);
       } catch(err) {
         return context.error(401, "Not authenticated.");
       }

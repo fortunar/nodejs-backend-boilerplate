@@ -2,6 +2,7 @@ import facebook from 'passport-facebook'
 import LocalStrategy from 'passport-local'
 import models from '../../../models'
 import config from './../../../config/app_config.json'
+import google from 'passport-google-oauth'
 
 const conf = config[process.env.NODE_ENV || 'development']
 
@@ -30,8 +31,7 @@ export default function (passport) {
             name: profile.name.givenName,
             surname: profile.name.familyName,
             id_fb: profile.id,
-            email: profile.emails[0].value,
-            mobile_verified: false
+            email: profile.emails[0].value
           })
         }).then(function(user) {
           return done(null, user);
@@ -40,25 +40,30 @@ export default function (passport) {
     });
   }));
 
-
-  passport.use(new LocalStrategy({
-      usernameField: 'username',
-      passwordField: 'password',
-      passReqToCallback: true,
-      session: false
+  passport.use(new google.OAuth2Strategy({
+      clientID: conf.login.googleAuth.clientID,
+      clientSecret: conf.login.googleAuth.clientSecret,
+      callbackURL:  conf.login.googleAuth.callbackURL
     },
-    function(req, email, password, done) {
-      models.users.findOne({
-        where: {"email" : email, "password": password}
-      }).then(function(user) {
-        if(user === null){
-            return done(null, null, {message :"Wrong username or password."});
-        }
-        return done(null, user , {message:"User authenticated."});
-      })
+    function(token, tokenSecret, profile, done) {
+      console.log(profile);
+      // models.users.findOne({ 'where' : {'id_gmail' : profile.id }}).then(function(user) {
+      //   if(user) {
+      //     return done(null, user);
+      //   } else {
+      //     models.users.sync().then(function () {
+      //       return models.users.create({
+      //         name: profile.name.givenName,
+      //         surname: profile.name.familyName,
+      //         id_fb: profile.id,
+      //         email: profile.emails[0].value
+      //       })
+      //     }).then(function(user) {
+      //       return done(null, user);
+      //     });
+      //   }
+      // });
     }
   ));
-
-
 
 }

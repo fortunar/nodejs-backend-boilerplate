@@ -27,7 +27,6 @@ Temporary Items
 node_modules
 config/config.json
 config/mongo.config
-config/app_config.json
 npm-debug.log
 
 /mongodb/data

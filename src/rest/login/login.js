@@ -1,5 +1,6 @@
 import {logger} from './../../logger'
 import express from 'express'
+import {createToken} from './../../token_helper'
 
 export default function (passport) {
   const router = express.Router();
@@ -16,15 +17,50 @@ export default function (passport) {
     }
   );
 
-
-
   // facebook login callback
   router.get('/facebook/callback',
-    passport.authenticate('facebook', { failureRedirect: '/login' }),
-    function(req, res) {
-      // Successful authentication, redirect home.
-      res.redirect('/');
+    function(req, res, next) {
+      passport.authenticate('facebook', { failureRedirect: '/login' }, function(err, user, message) {
+        if(err || !user) {
+          res.status(401)
+        }
+
+        res.json({
+          user: user,
+          token: createToken(user)
+        });
+
+      })(req,res,next);
+    }
+  );
+
+  router.get('/google',
+    function(req, res, next) {
+      passport.authenticate('google', { scope: 'https://www.google.com/m8/feeds' }, function(err, user, message) {
+        if(err || !user){
+          res.status(401);
+        }
+        return res.send(message);
+      })(req, res, next);
+    }
+  );
+
+  router.get('/google/callback',
+    function(req, res, next) {
+      passport.authenticate('google', { failureRedirect: '/login' }, function(err, user, message) {
+        console.log(err);
+        if(err || !user) {
+          res.status(401)
+        } else {
+          res.json({
+            user: user,
+            token: createToken(user)
+          });
+        }
+      })(req,res,next);
     });
+
+
 
   router.post('/local',
     function(req, res, next){
@@ -32,7 +68,11 @@ export default function (passport) {
         if(err || !user){
           res.status(401);
         }
-        return res.send(message);
+
+        res.json({
+          user: user,
+          token: createToken(user)
+        });
       })(req,res, next);
     }
   );
