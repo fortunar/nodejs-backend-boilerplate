@@ -4,15 +4,15 @@ import models from '../../../models'
 import config from './../../../config/app_config.json'
 import google from 'passport-google-oauth'
 
-const conf = config[process.env.NODE_ENV || 'development']
+const conf = config[process.env.NODE_ENV || 'development'];
 
-export default function (passport) {
+export default (passport) => {
 
-  passport.serializeUser(function(user, done) {
+  passport.serializeUser((user, done) => {
     done(null, user);
   });
 
-  passport.deserializeUser(function(user, done) {
+  passport.deserializeUser((user, done) => {
     done(null, user);
   });
 
@@ -21,19 +21,19 @@ export default function (passport) {
     clientSecret    : conf.login.facebookAuth.clientSecret,
     callbackURL     : conf.login.facebookAuth.callbackURL,
     profileFields   : ['id', 'displayName', 'name', 'emails']
-  }, function(token, refreshToken, profile, done) {
+  }, (token, refreshToken, profile, done) => {
     models.users.findOne({ 'where' : {'id_fb' : profile.id }}).then(function(user) {
       if(user) {
         return done(null, user);
       } else {
-        models.users.sync().then(function () {
+        models.users.sync().then(() => {
           return models.users.create({
             name: profile.name.givenName,
             surname: profile.name.familyName,
             id_fb: profile.id,
             email: profile.emails[0].value
           })
-        }).then(function(user) {
+        }).then((user) => {
           return done(null, user);
         });
       }
@@ -45,20 +45,20 @@ export default function (passport) {
       clientSecret: conf.login.googleAuth.clientSecret,
       callbackURL:  conf.login.googleAuth.callbackURL
     },
-    function(token, tokenSecret, profile, done) {
+    (token, tokenSecret, profile, done) => {
       console.log('Check db for existing user');
-      models.users.findOne({ 'where' : {'id_gmail' : profile.id }}).then(function(user) {
+      models.users.findOne({ 'where' : {'id_gmail' : profile.id }}).then((user) => {
         if(user) {
           return done(null, user);
         } else {
-          models.users.sync().then(function () {
+          models.users.sync().then( () => {
             return models.users.create({
               name: profile.name.givenName,
               surname: profile.name.familyName,
               id_gmail: profile.id,
               email: profile.emails[0].value
             })
-          }).then(function(user) {
+          }).then((user) => {
             return done(null, user);
           });
         }
@@ -72,10 +72,10 @@ export default function (passport) {
       passReqToCallback: true,
       session: false
     },
-    function(req, email, password, done) {
+    (req, email, password, done) => {
       models.users.findOne({
         where: {"email" : email, "password": password}
-      }).then(function(user) {
+      }).then((user) => {
         if(user === null){
             return done(null, null, {message :"Wrong username or password."});
         }

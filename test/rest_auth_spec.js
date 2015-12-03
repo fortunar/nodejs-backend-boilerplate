@@ -5,18 +5,18 @@ import request from 'supertest'
 
 describe('auth', () => {
 
-  it('rejects unauthorized requests', function(done){
+  it('rejects unauthorized requests', (done) =>{
     request(App)
       .get('/users')
       .set('Accept', 'application/json')
       .expect(401)
-      .end(function(err, res){
+      .end((err, res) =>{
         if (err) return done(err);
         done();
       });
   });
 
-  it('responds to authorized request', function(done){
+  it('responds to authorized request', (done)=>{
     var token;
     //first perform login
     request(App)
@@ -25,18 +25,17 @@ describe('auth', () => {
       // this user is already in the database
       .send({email: 'joze.potrebuje@gmail.com', password: 'joze'})
       .expect(200)
-      .end(function(err, res){
+      .end((err, res)=>{
         token = res.body.token;
         if (err) {
           return done(err)
           // if successful test the protected endpoint
         }else{
-          console.log(token);
           request(App)
             .get('/users')
             .set('token' , token)
             .expect(200)
-            .end(function(err, res){
+            .end((err, res)=>{
               if (err) return done(err);
               done();
             });

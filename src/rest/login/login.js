@@ -2,7 +2,7 @@ import {logger} from './../../logger'
 import express from 'express'
 import {createToken} from './../../auth'
 
-export default function (passport) {
+export default (passport) => {
   const router = express.Router();
 
   // request facebook login
@@ -12,8 +12,8 @@ export default function (passport) {
 
   // facebook login callback
   router.get('/facebook/callback',
-    function(req, res, next) {
-      passport.authenticate('facebook', { failureRedirect: '/login' }, function(err, user, message) {
+    (req, res, next) => {
+      passport.authenticate('facebook', { failureRedirect: '/login' }, (err, user)=> {
         if(err || !user) {
           res.status(401)
         }
@@ -32,8 +32,8 @@ export default function (passport) {
   );
 
   router.get('/google/callback',
-    function(req, res, next) {
-      passport.authenticate('google', { failureRedirect: '/login' }, function(err, user, message) {
+    (req, res, next) => {
+      passport.authenticate('google', { failureRedirect: '/login' }, (err, user) => {
         if(err || !user) {
           res.status(401);
           res.send(err);
@@ -47,8 +47,8 @@ export default function (passport) {
     });
 
   router.post('/local',
-    function(req, res, next){
-      passport.authenticate('local', function(err, user, message){
+    (req, res, next) =>{
+      passport.authenticate('local', (err, user, message)=>{
         if(err || !user){
           res.status(401);
           res.send(message);

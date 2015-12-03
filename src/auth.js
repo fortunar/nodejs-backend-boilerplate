@@ -2,17 +2,17 @@ import jwt from 'jsonwebtoken'
 
 const jwtSecret = "secret";
 
-export function createToken(user) {
+export const createToken = (user) => {
   return jwt.sign({id: user.id_user, name: user.name}, jwtSecret, {
     expiresInMinutes: 5
   });
-}
+};
 
-export function checkToken(token) {
+export const checkToken = (token) => {
   return jwt.verify(token, jwtSecret);
-}
+};
 
-export function checkUserToken(token, context){
+export const checkUserToken = (token, context) =>{
   console.log('check user token');
   try {
     const decoded = checkToken(token);
@@ -20,7 +20,7 @@ export function checkUserToken(token, context){
     return context.error(401, "Not authenticated.");
   }
   return context.continue;
-}
+};
 
 // export function checkUserRole(token, context, roles){
 //   console.log('check user token');

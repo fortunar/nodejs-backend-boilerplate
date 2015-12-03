@@ -4,7 +4,7 @@ import {checkToken, checkUserToken} from './auth'
 
 export const auth = {
   list: {
-    auth: function(req, res, context) {
+    auth: (req, res, context) => {
       return checkUserToken(req.headers.token, context);
     }
   }
@@ -12,7 +12,7 @@ export const auth = {
 
 export const logging = {
   read: {
-      fetch: function(req, res, context) {
+      fetch: (req, res, context) => {
         logger.info('We are golden.');
         return context.continue;
       }

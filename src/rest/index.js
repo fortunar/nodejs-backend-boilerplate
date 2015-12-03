@@ -11,7 +11,7 @@ import passportStrategyInit from './login/passport'
 
 const conf = config[process.env.NODE_ENV || 'development'];
 
-export default function(App, passport){
+export default (App, passport)=> {
 
   passportStrategyInit(passport);
 
@@ -22,8 +22,8 @@ export default function(App, passport){
 
   App.use('/login', login(passport));
 
-  App.get('/', function(req,res){
-    res.write("We are aroundSLO!");
+  App.get('/', (req,res) => {
+    res.send("We are aroundSLO!");
   });
 
   var users = epilogue.resource({
