@@ -16,13 +16,12 @@ export default (passport) => {
       passport.authenticate('facebook', { failureRedirect: '/login' }, (err, user)=> {
         if(err || !user) {
           res.status(401)
+        } else {
+          res.json({
+              user: user,
+              token: createToken(user)
+          });
         }
-
-        res.json({
-          user: user,
-          token: createToken(user)
-        });
-
       })(req,res,next);
     }
   );
