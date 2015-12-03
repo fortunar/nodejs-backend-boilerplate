@@ -17,5 +17,4 @@ App.use(passport.initialize());
 
 initRest(App,passport);
 
-
 export default App;

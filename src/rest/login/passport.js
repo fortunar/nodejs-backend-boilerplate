@@ -46,7 +46,6 @@ export default function (passport) {
       callbackURL:  conf.login.googleAuth.callbackURL
     },
     function(token, tokenSecret, profile, done) {
-      console.log('Check db for existing user');
       models.users.findOne({ 'where' : {'id_gmail' : profile.id }}).then(function(user) {
         if(user) {
           return done(null, user);
