@@ -4,12 +4,12 @@
       "facebookAuth" : {
           "clientID"      : "200261066974972",
           "clientSecret"  : "87371a72b17ce48e56b5de02e41e8abb",
-          "callbackURL"  : "http://localhost:3000/login/facebook/callback"
+          "callbackURL"  : "http://localhost:3030/login/facebook/callback"
       },
       "googleAuth" : {
           "clientID" : "773660746186-aiutp03r4nocneetpal5q1eu7vhah69p.apps.googleusercontent.com",
           "clientSecret"  : "BQFgjpd47SkpCg1SnvRd00ew",
-          "callbackURL" : "http://localhost:3000/login/google/callback"
+          "callbackURL" : "http://localhost:3030/login/google/callback"
       }
     },
     "mongodb": {
@@ -23,7 +23,7 @@
       "facebookAuth" : {
           "clientID"      : "200261066974972",
           "clientSecret"  : "87371a72b17ce48e56b5de02e41e8abb",
-          "callbackURL"  : "http://localhost:3000/login/facebook/callback"
+          "callbackURL"  : "http://localhost:3030/login/facebook/callback"
       }
     },
     "mongodb": {
@@ -37,7 +37,7 @@
       "facebookAuth" : {
           "clientID"      : "200261066974972",
           "clientSecret"  : "87371a72b17ce48e56b5de02e41e8abb",
-          "callbackURL"  : "http://localhost:3000/login/facebook/callback"
+          "callbackURL"  : "http://localhost:3030/login/facebook/callback"
       }
     },
     "mongodb": {

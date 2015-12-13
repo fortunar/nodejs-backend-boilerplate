@@ -2,25 +2,28 @@ import {logger} from './../../logger'
 import express from 'express'
 import {createToken} from './../../auth'
 
+const extractUserLoginResponse = (user)=> {
+  return JSON.stringify({'id': user.dataValues.id_user, 'email': user.dataValues.email });
+}
+
 export default (passport) => {
   const router = express.Router();
 
   // request facebook login
-  router.get('/facebook',
-      passport.authenticate('facebook', { scope: 'email' })
-  );
+  router.get('/facebook', passport.authenticate('facebook', { scope: 'email' }));
 
   // facebook login callback
   router.get('/facebook/callback',
     (req, res, next) => {
-      passport.authenticate('facebook', { failureRedirect: '/login' }, (err, user)=> {
+      console.log("LOGIN FACEBOOK");
+      passport.authenticate('facebook', { failureRedirect: 'http://localhost:3000/users' }, (err, user)=> {
+        console.log("CALLBACK");
         if(err || !user) {
           res.status(401)
         } else {
-          res.json({
-              user: user,
-              token: createToken(user)
-          });
+          res.setHeader('user', extractUserLoginResponse(user));
+          res.setHeader('token', createToken(user));
+          res.redirect('http://localhost:3000/users');
         }
       })(req,res,next);
     }
@@ -32,15 +35,14 @@ export default (passport) => {
 
   router.get('/google/callback',
     (req, res, next) => {
-      passport.authenticate('google', { failureRedirect: '/login' }, (err, user) => {
+      passport.authenticate('google', { failureRedirect: 'http://localhost:3000/' }, (err, user) => {
         if(err || !user) {
           res.status(401);
           res.send(err);
         } else {
-          res.json({
-            user: user,
-            token: createToken(user)
-          });
+          res.setHeader('user', extractUserLoginResponse(user));
+          res.setHeader('token', createToken(user));
+          res.redirect('http://localhost:3000/users');
         }
       })(req,res,next);
     });

@@ -13,7 +13,6 @@ export const checkToken = (token) => {
 };
 
 export const checkUserToken = (token, context) =>{
-  console.log('check user token');
   try {
     const decoded = checkToken(token);
   } catch(err) {

@@ -1,7 +1,6 @@
 import config from './../../config/config.json';
 import Sequelize from 'sequelize'
 import epilogue from 'epilogue'
-import express from 'express'
 import jwt from 'jsonwebtoken'
 
 import models from '../../models'
