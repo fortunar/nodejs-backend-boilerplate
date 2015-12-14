@@ -2,8 +2,14 @@ import {logger} from './../../logger'
 import express from 'express'
 import {createToken} from './../../auth'
 
-const extractUserLoginResponse = (user)=> {
-  return JSON.stringify({'id': user.dataValues.id_user, 'email': user.dataValues.email });
+const handleLoginCallbackRedirect = (err, user, res)=> {
+  if(err || !user) {
+    res.redirect(401,`http://localhost:3000/?message=${err}`) ;
+  } else {
+    res.cookie('user', {'id': user.dataValues.id_user, 'email': user.dataValues.email });
+    res.cookie('token', createToken(user));
+    res.redirect('http://localhost:3000/');
+  }
 }
 
 export default (passport) => {
@@ -15,16 +21,8 @@ export default (passport) => {
   // facebook login callback
   router.get('/facebook/callback',
     (req, res, next) => {
-      console.log("LOGIN FACEBOOK");
       passport.authenticate('facebook', { failureRedirect: 'http://localhost:3000/users' }, (err, user)=> {
-        console.log("CALLBACK");
-        if(err || !user) {
-          res.status(401)
-        } else {
-          res.setHeader('user', extractUserLoginResponse(user));
-          res.setHeader('token', createToken(user));
-          res.redirect('http://localhost:3000/users');
-        }
+        handleLoginCallbackRedirect(err, user, res);
       })(req,res,next);
     }
   );
@@ -35,29 +33,21 @@ export default (passport) => {
 
   router.get('/google/callback',
     (req, res, next) => {
-      passport.authenticate('google', { failureRedirect: 'http://localhost:3000/' }, (err, user) => {
-        if(err || !user) {
-          res.status(401);
-          res.send(err);
-        } else {
-          res.setHeader('user', extractUserLoginResponse(user));
-          res.setHeader('token', createToken(user));
-          res.redirect('http://localhost:3000/users');
-        }
+      passport.authenticate('google', { failureRedirect: 'http://localhost:3000/user' }, (err, user) => {
+        handleLoginCallbackRedirect(err, user, res);
       })(req,res,next);
     });
 
   router.post('/local',
     (req, res, next) =>{
       passport.authenticate('local', (err, user, message)=>{
-        if(err || !user){
+        if(err || !user) {
           res.status(401);
           res.send(message);
-        }else{
-          res.json({
-            user: user,
-            token: createToken(user)
-          });
+        } else {
+          res.cookie('user', user.dataValues.email );
+          res.cookie('token', createToken(user));
+          res.send(message);
         }
       })(req,res, next);
     }
