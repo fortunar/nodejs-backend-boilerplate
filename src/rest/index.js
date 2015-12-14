@@ -30,7 +30,7 @@ export default (App, passport)=> {
     endpoints: ['/users', '/users/:id_user']
   });
 
-  users.use(auth);
+//  users.use(auth);
   users.use(logger);
 
 }

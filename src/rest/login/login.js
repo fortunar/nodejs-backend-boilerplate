@@ -2,12 +2,20 @@ import {logger} from './../../logger'
 import express from 'express'
 import {createToken} from './../../auth'
 
+const createUserCookie = (user, res) => {
+  res.cookie('aroundSlo', JSON.stringify({ 'token' : createToken(user),
+    'user' : {'id': user.dataValues.id_user,
+      'name': user.dataValues.name,
+      'surname': user.dataValues.surname,
+      'email': user.dataValues.email }
+  }), { maxAge: 100000 });
+}
+
 const handleLoginCallbackRedirect = (err, user, res)=> {
   if(err || !user) {
     res.redirect(401,`http://localhost:3000/?message=${err}`) ;
   } else {
-    res.cookie('user', {'id': user.dataValues.id_user, 'email': user.dataValues.email });
-    res.cookie('token', createToken(user));
+    createUserCookie(user, res);
     res.redirect('http://localhost:3000/');
   }
 }
@@ -45,8 +53,7 @@ export default (passport) => {
           res.status(401);
           res.send(message);
         } else {
-          res.cookie('user', user.dataValues.email );
-          res.cookie('token', createToken(user));
+          createUserCookie(user, res);
           res.send(message);
         }
       })(req,res, next);
