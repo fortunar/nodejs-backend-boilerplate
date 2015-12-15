@@ -3,12 +3,8 @@ import express from 'express'
 import {createToken} from './../../auth'
 
 const createUserCookie = (user, res) => {
-  res.cookie('aroundSlo', JSON.stringify({ 'token' : createToken(user),
-    'user' : {'id': user.dataValues.id_user,
-      'name': user.dataValues.name,
-      'surname': user.dataValues.surname,
-      'email': user.dataValues.email }
-  }), { maxAge: 100000 });
+  res.cookie('around_token', createToken(user), {maxAge:10000});
+  res.cookie('around_user_id', user.id_user, {maxAge: 10000});
 }
 
 const handleLoginCallbackRedirect = (err, user, res)=> {
