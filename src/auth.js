@@ -1,6 +1,8 @@
 import jwt from 'jsonwebtoken'
 
 const jwtSecret = "secret";
+const oneWeek = 60 * 24 * 7;
+const oneHour = 60;
 
 export const createToken = (user) => {
   return jwt.sign({id: user.id_user, name: user.name}, jwtSecret, {
@@ -11,6 +13,16 @@ export const createToken = (user) => {
 export const checkToken = (token) => {
   return jwt.verify(token, jwtSecret);
 };
+
+const updateToken = (token) => {
+  const {exp} = jwt.decode(token, {complete: true});
+  const curTime = Date().UTC();
+  if (exp - curTime < (oneWeek  - oneHour) * 60 * 1000) {
+    return createToken(user);
+  } else {
+    return token;
+  }
+}
 
 export const checkUserToken = (token, context) =>{
   try {

@@ -13,7 +13,6 @@ export const auth = {
 export const logging = {
   read: {
       fetch: (req, res, context) => {
-        logger.info('We are golden.');
         return context.continue;
       }
     }
