@@ -5,7 +5,7 @@ import {checkToken, checkUserToken} from './auth'
 export const auth = {
   list: {
     auth: (req, res, context) => {
-      return checkUserToken(req.headers.token, context);
+      return checkUserToken(req.headers.token, res, context);
     }
   }
 };
