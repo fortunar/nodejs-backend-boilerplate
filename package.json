@@ -6,6 +6,7 @@
   "scripts": {
     "start": "nodemon --exec DEBUG=* babel-node ./bin/www",
     "db-migrate": "sequelize db:migrate",
+    "db-migrate-create": "sequelize migration:create",
     "db-migrate-undo": "sequelize db:migrate:undo",
     "db-seed": "sequelize db:seed",
     "db-seed-undo": "sequelize db:seed:undo",
