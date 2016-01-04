@@ -3,7 +3,7 @@ import {expect} from 'chai';
 import request from 'supertest'
 
 
-describe('auth', () => {
+describe('basicAuth', () => {
 
   it('rejects unauthorized requests', (done) =>{
     request(App)

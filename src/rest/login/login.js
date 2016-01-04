@@ -1,6 +1,6 @@
 import {logger} from './../../logger'
 import express from 'express'
-import {createToken} from './../../auth'
+import {createToken} from './../auth'
 
 const createUserCookie = (user, res) => {
   res.cookie('around_token', createToken(user), {maxAge:10000});
@@ -32,7 +32,7 @@ export default (passport) => {
   );
 
   router.get('/google',
-      passport.authenticate('google', { scope: 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email' })
+      passport.authenticate('google', { scope: 'https://www.googleapis.com/basicAuth/userinfo.profile https://www.googleapis.com/basicAuth/userinfo.email' })
   );
 
   router.get('/google/callback',
