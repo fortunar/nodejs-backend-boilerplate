@@ -22,13 +22,13 @@ export default (passport) => {
     callbackURL     : conf.login.facebookAuth.callbackURL,
     profileFields   : ['id', 'displayName', 'name', 'emails']
   }, (token, refreshToken, profile, done) => {
-    models.users.findOne({ 'where' : {'id_fb' : profile.id }}).then(function(user) {
+    models.User.findOne({ 'where' : {'id_fb' : profile.id }}).then(function(user) {
       console.log("FINDING USER");
       if(user) {
         return done(null, user);
       } else {
-        models.users.sync().then(() => {
-          return models.users.create({
+        models.User.sync().then(() => {
+          return models.User.create({
             name: profile.name.givenName,
             surname: profile.name.familyName,
             id_fb: profile.id,
@@ -47,12 +47,12 @@ export default (passport) => {
       callbackURL:  conf.login.googleAuth.callbackURL
     },
     (token, tokenSecret, profile, done) => {
-      models.users.findOne({ 'where' : {'id_gmail' : profile.id }}).then((user) => {
+      models.User.findOne({ 'where' : {'id_gmail' : profile.id }}).then((user) => {
         if(user) {
           return done(null, user);
         } else {
-          models.users.sync().then( () => {
-            return models.users.create({
+          models.User.sync().then( () => {
+            return models.User.create({
               name: profile.name.givenName,
               surname: profile.name.familyName,
               id_gmail: profile.id,
@@ -73,7 +73,7 @@ export default (passport) => {
       session: false
     },
     (req, email, password, done) => {
-      models.users.findOne({
+      models.User.findOne({
         where: {"email" : email, "password": password}
       }).then((user) => {
         if(user === null){

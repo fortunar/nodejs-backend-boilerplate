@@ -1,6 +1,5 @@
 import App from '../App'
 import http from 'http'
-import models from '../models'
 import debug from 'debug'
 
 const debug_log = debug('www')
@@ -12,9 +11,8 @@ App.set('port', port);
 const server = http.createServer(App);
 
 server.listen(port);
-models.sequelize.sync().then(function () {
 
-  // server.on('error', (error)=> throw error);
-  debug_log(`Server listening on port ${port}...`);
 
-});
+// server.on('error', (error)=> throw error);
+ debug_log(`Server listening on port ${port}...`);
+

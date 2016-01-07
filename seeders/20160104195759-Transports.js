@@ -26,7 +26,7 @@ const transports = [{
   passangers_number: 4,
   vehicle_desc: 'Polo GTR',
   insurence: false,
-  additional_info: 'bodi tocen',
+  additional_info: 'Be punctual.',
   highway: true,
   createdAt: new Date(),
   updatedAt: new Date()
@@ -39,9 +39,9 @@ const transports = [{
     price: 10,
     id_currency: 2,
     passangers_number: 4,
-    vehicle_desc: 'GOLFIC GTR',
+    vehicle_desc: 'GOLF GTR',
     insurence: false,
-    additional_info: 'bodi tocen in cist',
+    additional_info: 'Be fair and punctual.',
     highway: false,
     createdAt: new Date(),
     updatedAt: new Date()
