@@ -1,37 +1,34 @@
 'use strict';
 
-var fs        = require('fs');
-var path      = require('path');
-var Sequelize = require('sequelize');
-var basename  = path.basename(module.filename);
-var env       = process.env.NODE_ENV || 'development';
-var conf    = require(__dirname + '/../config/config.json')[env];
-var db        = {};
+var models = {};
+var initialized = false;
 
-if (conf.use_env_variable) {
-  var sequelize = new Sequelize(process.env[conf.use_env_variable]);
-} else {
-  var sequelize = new Sequelize(conf.database, conf.username, conf.password, conf);
-}
+function init(sequelize) {
+    delete module.exports.init; // Destroy itself to prevent repeated calls and clash with a model named 'init'.
+    initialized = true;
+    console.log('INIT');
 
-fs
-  .readdirSync(__dirname)
-  .filter(function(file) {
-    return (file.indexOf('.') !== 0) && (file !== basename);
-  })
-  .forEach(function(file) {
-    if (file.slice(-3) !== '.js') return;
-    var model = sequelize['import'](path.join(__dirname, file));
-    db[model.name] = model;
-  });
+    // Import model files and assign them to `model` object.
+    models.SequelizeDatum = sequelize.import("./SequelizeData.js");
+    models.SequelizeMetum = sequelize.import("./SequelizeMeta.js");
+    models.Currency = sequelize.import("./currencies.js");
+    models.Place = sequelize.import("./places.js");
+    models.Transport = sequelize.import("./transports.js");
+    models.User = sequelize.import("./users.js");
+    models.Vote = sequelize.import("./votes.js");
 
-Object.keys(db).forEach(function(modelName) {
-  if (db[modelName].associate) {
-    db[modelName].associate(db);
-  }
-});
+    // All models are initialized. Now connect them with relations.
+    require("./SequelizeData.js").initRelations();
+    require("./SequelizeMeta.js").initRelations();
+    require("./currencies.js").initRelations();
+    require("./places.js").initRelations();
+    require("./transports.js").initRelations();
+    require("./users.js").initRelations();
+    require("./votes.js").initRelations();
+    return models;
+};
 
-db.sequelize = sequelize;
-db.Sequelize = Sequelize;
-
-module.exports = db;
+// Note: While using this module, DO NOT FORGET FIRST CALL model.init(sequelize). Otherwise you get undefined.
+module.exports = models;
+module.exports.init = init;
+module.exports.isInitialized = initialized;

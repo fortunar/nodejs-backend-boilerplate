@@ -1,10 +1,13 @@
-import models from './../../../models';
 import {basicAuth, logger} from './../../interceptors';
 
-export const initialize = (epilogue) => {
+export const initialize = (epilogue, models) => {
+
+    console.log(models.isInitialized);
+
     var transports = epilogue.resource({
-        model: models.transports,
-        endpoints: ['/transports', '/transports/:id_transport']
+        model: models.Transport,
+        include: [models.Currency],
+        endpoints: ['/transports', '/transports/:idTransport']
     });
 
     transports.use(basicAuth);

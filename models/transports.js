@@ -1,72 +1,144 @@
-/* jshint indent: 2 */
+'use strict';
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('transports', {
-    id_transport: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      notNull: true,
-      autoIncrement: true
-    },
-    id_user: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'users',
-        key: 'id_user'
-      }
-    },
-    id_departure_place: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'places',
-        key: 'id_place'
-      }
-    },
-    id_arrival_place: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'places',
-        key: 'id_place'
-      }
-    },
-    departure_time: {
-      type: DataTypes.DATE,
-      allowNull: false
-    },
-    price: {
-      type: 'REAL',
-      allowNull: false
-    },
-    id_currency: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'currencies',
-        key: 'id_currency'
-      }
-    },
-    passangers_number: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    vehicle_desc: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    insurence: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false
-    },
-    additional_info: {
-      type: DataTypes.TEXT,
-      allowNull: true
-    },
-    highway: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false
-    }
-  });
+    return sequelize.define('Transport', {
+        idTransport: {
+            type: DataTypes.INTEGER,
+            field: "id_transport",
+            allowNull: false,
+            primaryKey: true,
+            autoIncrement: true
+        },
+        idUser: {
+            type: DataTypes.INTEGER,
+            field: "id_user",
+            allowNull: false,
+            references: {
+                model: "users",
+                key: "id_user"
+            },
+            onUpdate: "NO ACTION",
+            onDelete: "NO ACTION"
+        },
+        idDeparturePlace: {
+            type: DataTypes.INTEGER,
+            field: "id_departure_place",
+            allowNull: false,
+            references: {
+                model: "places",
+                key: "id_place"
+            },
+            onUpdate: "NO ACTION",
+            onDelete: "NO ACTION"
+        },
+        idArrivalPlace: {
+            type: DataTypes.INTEGER,
+            field: "id_arrival_place",
+            allowNull: false,
+            references: {
+                model: "places",
+                key: "id_place"
+            },
+            onUpdate: "NO ACTION",
+            onDelete: "NO ACTION"
+        },
+        departureTime: {
+            type: DataTypes.DATE,
+            field: "departure_time",
+            allowNull: false
+        },
+        price: {
+            type: DataTypes.FLOAT(24),
+            field: "price",
+            allowNull: false
+        },
+        idCurrency: {
+            type: DataTypes.INTEGER,
+            field: "id_currency",
+            allowNull: false,
+            references: {
+                model: "currencies",
+                key: "id_currency"
+            },
+            onUpdate: "NO ACTION",
+            onDelete: "NO ACTION"
+        },
+        passangersNumber: {
+            type: DataTypes.INTEGER,
+            field: "passangers_number",
+            allowNull: false
+        },
+        vehicleDesc: {
+            type: DataTypes.STRING(255),
+            field: "vehicle_desc",
+            allowNull: true
+        },
+        insurence: {
+            type: DataTypes.BOOLEAN,
+            field: "insurence",
+            allowNull: false
+        },
+        additionalInfo: {
+            type: DataTypes.TEXT,
+            field: "additional_info",
+            allowNull: true
+        },
+        highway: {
+            type: DataTypes.BOOLEAN,
+            field: "highway",
+            allowNull: false
+        },
+        createdAt: {
+            type: DataTypes.DATE,
+            field: "createdAt",
+            allowNull: false
+        },
+        updatedAt: {
+            type: DataTypes.DATE,
+            field: "updatedAt",
+            allowNull: false
+        }
+    }, {
+        schema: "public",
+        tableName: "transports",
+        timestamps: false
+    });
+};
+
+module.exports.initRelations = function() {
+    delete module.exports.initRelations; // Destroy itself to prevent repeated calls.
+    var models = require('./index');
+    var Transport = models.Transport;
+    var Place = models.Place;
+    var Currency = models.Currency;
+    var User = models.User;
+
+    Transport.belongsTo(Place, {
+        as: "RelatedIdArrivalPlace",
+        foreignKey: "id_arrival_place",
+        onDelete: "NO ACTION",
+        onUpdate: "NO ACTION"
+    });
+
+    Transport.belongsTo(Currency, {
+        as: "RelatedIdCurrency",
+        foreignKey: "id_currency",
+        onDelete: "NO ACTION",
+        onUpdate: "NO ACTION"
+    });
+
+    Transport.belongsTo(Place, {
+        as: "RelatedIdDeparturePlace",
+        foreignKey: "id_departure_place",
+        onDelete: "NO ACTION",
+        onUpdate: "NO ACTION"
+    });
+
+    Transport.belongsTo(User, {
+        as: "RelatedIdUser",
+        foreignKey: "id_user",
+        onDelete: "NO ACTION",
+        onUpdate: "NO ACTION"
+    });
+
 };
