@@ -101,7 +101,21 @@ module.exports = function(sequelize, DataTypes) {
     }, {
         schema: "public",
         tableName: "transports",
-        timestamps: false
+        timestamps: false,
+        instanceMethods: {
+            toJSON: function () {
+                var values = this.get();
+
+                delete values.id_currency;
+                delete values.id_arrival_place;
+                delete values.id_departure_place;
+                delete values.id_user;
+
+                delete values.createdAt;
+                delete values.updatedAt;
+                return values;
+            }
+        }
     });
 };
 

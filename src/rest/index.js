@@ -11,11 +11,11 @@ import passportStrategyInit from './login/passport';
 
 import {initialize as initializeTransportsREST} from './transports/transports';
 import {initialize as initializeUsersREST} from './users/users';
+import models from './../../models';
 
 const conf = config[process.env.NODE_ENV || 'development'];
 
 const sequelize = new Sequelize(conf.database, conf.username, conf.password, conf);
-const models = require('./../../models').init(sequelize);
 
 export default (App, passport)=> {
 
@@ -35,15 +35,9 @@ export default (App, passport)=> {
     res.send("We are aroundSLO!");
   });
 
-  initializeTransportsREST(epilogue, models);
-  initializeUsersREST(epilogue);
+  const modelsInitialized = models.init(sequelize);
 
-//  var users = epilogue.resource({
-//    model: models.users,
-//    endpoints: ['/users', '/users/:id_user']
-//  });
-//
-//  users.use(basicAuth);
-//  users.use(logger);
+  initializeTransportsREST(epilogue, modelsInitialized);
+  initializeUsersREST(epilogue, modelsInitialized);
 
 }

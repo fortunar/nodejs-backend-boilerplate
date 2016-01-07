@@ -6,8 +6,10 @@ export const initialize = (epilogue, models) => {
 
     var transports = epilogue.resource({
         model: models.Transport,
-        include: [{model: models.Currency, as:'RelatedIdCurrency'}],
+        include: [{model: models.Currency, as:'RelatedIdCurrency', attributes: ['symbol']},
+                  {model: models.User, as: 'RelatedIdUser', attributes: ['email', 'name', 'surname', 'mobile']}],
         endpoints: ['/transports', '/transports/:idTransport']
+
     });
 
     transports.use(basicAuth);

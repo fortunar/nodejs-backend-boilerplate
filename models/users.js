@@ -63,7 +63,17 @@ module.exports = function(sequelize, DataTypes) {
     }, {
         schema: "public",
         tableName: "users",
-        timestamps: false
+        timestamps: false,
+        instanceMethods: {
+            toJSON: function () {
+                var values = this.get();
+
+                delete values.password;
+                delete values.createdAt;
+                delete values.updatedAt;
+                return values;
+            }
+        }
     });
 };
 
