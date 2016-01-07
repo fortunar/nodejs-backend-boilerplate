@@ -128,28 +128,28 @@ module.exports.initRelations = function() {
     var User = models.User;
 
     Transport.belongsTo(Place, {
-        as: "RelatedIdArrivalPlace",
+        as: "arrivalPlace",
         foreignKey: "id_arrival_place",
         onDelete: "NO ACTION",
         onUpdate: "NO ACTION"
     });
 
     Transport.belongsTo(Currency, {
-        as: "RelatedIdCurrency",
+        as: "currency",
         foreignKey: "id_currency",
         onDelete: "NO ACTION",
         onUpdate: "NO ACTION"
     });
 
     Transport.belongsTo(Place, {
-        as: "RelatedIdDeparturePlace",
+        as: "departurePlace",
         foreignKey: "id_departure_place",
         onDelete: "NO ACTION",
         onUpdate: "NO ACTION"
     });
 
     Transport.belongsTo(User, {
-        as: "RelatedIdUser",
+        as: "user",
         foreignKey: "id_user",
         onDelete: "NO ACTION",
         onUpdate: "NO ACTION"

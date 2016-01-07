@@ -32,7 +32,18 @@ module.exports = function(sequelize, DataTypes) {
     }, {
         schema: "public",
         tableName: "places",
-        timestamps: false
+        timestamps: false,
+        instanceMethods: {
+            toJSON: function () {
+                var values = this.get();
+
+                delete values.idPlace;
+
+                delete values.createdAt;
+                delete values.updatedAt;
+                return values;
+            }
+        }
     });
 };
 
@@ -41,8 +52,6 @@ module.exports.initRelations = function() {
     var models = require('./index');
     var Place = models.Place;
     var Transport = models.Transport;
-    var Currency = models.Currency;
-    var User = models.User;
 
     Place.hasMany(Transport, {
         as: "TransportsIdArrivalPlaceFkeys",
