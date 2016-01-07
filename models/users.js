@@ -97,49 +97,49 @@ module.exports.initRelations = function() {
         onUpdate: "NO ACTION"
     });
 
-    User.belongsToMany(Place, {
-        as: "TransportIdArrivalPlaces",
-        through: Transport,
-        foreignKey: "id_user",
-        otherKey: "id_arrival_place",
-        onDelete: "NO ACTION",
-        onUpdate: "NO ACTION"
-    });
-
-    User.belongsToMany(Currency, {
-        as: "TransportIdCurrencies",
-        through: Transport,
-        foreignKey: "id_user",
-        otherKey: "id_currency",
-        onDelete: "NO ACTION",
-        onUpdate: "NO ACTION"
-    });
-
-    User.belongsToMany(Place, {
-        as: "TransportIdDeparturePlaces",
-        through: Transport,
-        foreignKey: "id_user",
-        otherKey: "id_departure_place",
-        onDelete: "NO ACTION",
-        onUpdate: "NO ACTION"
-    });
-
-    User.belongsToMany(User, {
-        as: "VoteIdUserLikers",
-        through: Vote,
-        foreignKey: "id_user_driver",
-        otherKey: "id_user_liker",
-        onDelete: "NO ACTION",
-        onUpdate: "NO ACTION"
-    });
-
-    User.belongsToMany(User, {
-        as: "VoteIdUserDrivers",
-        through: Vote,
-        foreignKey: "id_user_liker",
-        otherKey: "id_user_driver",
-        onDelete: "NO ACTION",
-        onUpdate: "NO ACTION"
-    });
+//    User.belongsToMany(Place, {
+//        as: "TransportIdArrivalPlaces",
+//        through: Transport,
+//        foreignKey: "id_user",
+//        otherKey: "id_arrival_place",
+//        onDelete: "NO ACTION",
+//        onUpdate: "NO ACTION"
+//    });
+//
+//    User.belongsToMany(Currency, {
+//        as: "TransportIdCurrencies",
+//        through: Transport,
+//        foreignKey: "id_user",
+//        otherKey: "id_currency",
+//        onDelete: "NO ACTION",
+//        onUpdate: "NO ACTION"
+//    });
+//
+//    User.belongsToMany(Place, {
+//        as: "TransportIdDeparturePlaces",
+//        through: Transport,
+//        foreignKey: "id_user",
+//        otherKey: "id_departure_place",
+//        onDelete: "NO ACTION",
+//        onUpdate: "NO ACTION"
+//    });
+//
+//    User.belongsToMany(User, {
+//        as: "VoteIdUserLikers",
+//        through: Vote,
+//        foreignKey: "id_user_driver",
+//        otherKey: "id_user_liker",
+//        onDelete: "NO ACTION",
+//        onUpdate: "NO ACTION"
+//    });
+//
+//    User.belongsToMany(User, {
+//        as: "VoteIdUserDrivers",
+//        through: Vote,
+//        foreignKey: "id_user_liker",
+//        otherKey: "id_user_driver",
+//        onDelete: "NO ACTION",
+//        onUpdate: "NO ACTION"
+//    });
 
 };

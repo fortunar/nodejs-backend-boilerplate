@@ -46,31 +46,31 @@ module.exports.initRelations = function() {
         onUpdate: "NO ACTION"
     });
 
-    Currency.belongsToMany(Place, {
-        as: "TransportIdArrivalPlaces",
-        through: Transport,
-        foreignKey: "id_currency",
-        otherKey: "id_arrival_place",
-        onDelete: "NO ACTION",
-        onUpdate: "NO ACTION"
-    });
-
-    Currency.belongsToMany(Place, {
-        as: "TransportIdDeparturePlaces",
-        through: Transport,
-        foreignKey: "id_currency",
-        otherKey: "id_departure_place",
-        onDelete: "NO ACTION",
-        onUpdate: "NO ACTION"
-    });
-
-    Currency.belongsToMany(User, {
-        as: "TransportIdUsers",
-        through: Transport,
-        foreignKey: "id_currency",
-        otherKey: "id_user",
-        onDelete: "NO ACTION",
-        onUpdate: "NO ACTION"
-    });
+//    Currency.belongsToMany(Place, {
+//        as: "TransportIdArrivalPlaces",
+//        through: Transport,
+//        foreignKey: "id_currency",
+//        otherKey: "id_arrival_place",
+//        onDelete: "NO ACTION",
+//        onUpdate: "NO ACTION"
+//    });
+//
+//    Currency.belongsToMany(Place, {
+//        as: "TransportIdDeparturePlaces",
+//        through: Transport,
+//        foreignKey: "id_currency",
+//        otherKey: "id_departure_place",
+//        onDelete: "NO ACTION",
+//        onUpdate: "NO ACTION"
+//    });
+//
+//    Currency.belongsToMany(User, {
+//        as: "TransportIdUsers",
+//        through: Transport,
+//        foreignKey: "id_currency",
+//        otherKey: "id_user",
+//        onDelete: "NO ACTION",
+//        onUpdate: "NO ACTION"
+//    });
 
 };

@@ -6,7 +6,7 @@ export const initialize = (epilogue, models) => {
 
     var transports = epilogue.resource({
         model: models.Transport,
-        include: [models.Currency],
+        include: [{model: models.Currency, as:'RelatedIdCurrency'}],
         endpoints: ['/transports', '/transports/:idTransport']
     });
 
