@@ -27,7 +27,6 @@ export default (App, passport)=> {
     sequelize: sequelize
   });
 
-  console.log(models.isInitialized);
 
   App.use('/login', login(passport));
 
@@ -35,9 +34,9 @@ export default (App, passport)=> {
     res.send("We are aroundSLO!");
   });
 
-  const modelsInitialized = models.init(sequelize);
+  models.init(sequelize);
 
-  initializeTransportsREST(epilogue, modelsInitialized);
-  initializeUsersREST(epilogue, modelsInitialized);
+  initializeTransportsREST(epilogue);
+  initializeUsersREST(epilogue);
 
 }

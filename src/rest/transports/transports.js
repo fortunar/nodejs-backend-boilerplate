@@ -1,6 +1,6 @@
 import {basicAuth, logger} from './../../interceptors';
-
-export const initialize = (epilogue, models) => {
+import models from './../../../models';
+export const initialize = (epilogue) => {
 
     console.log(models.isInitialized);
 
