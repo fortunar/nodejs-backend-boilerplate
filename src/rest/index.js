@@ -11,6 +11,7 @@ import passportStrategyInit from './login/passport';
 
 import {initialize as initializeTransportsREST} from './transports/transports';
 import {initialize as initializeUsersREST} from './users/users';
+import {initialize as initializeLocationREST} from './location/location';
 import models from './../../models';
 
 const conf = config[process.env.NODE_ENV || 'development'];
@@ -21,13 +22,10 @@ export default (App, passport)=> {
 
   passportStrategyInit(passport);
 
-
   epilogue.initialize({
     app: App,
     sequelize: sequelize
   });
-
-  console.log(models.isInitialized);
 
   App.use('/login', login(passport));
 
@@ -39,5 +37,6 @@ export default (App, passport)=> {
 
   initializeTransportsREST(epilogue, modelsInitialized);
   initializeUsersREST(epilogue, modelsInitialized);
+  initializeLocationREST(App, sequelize);
 
 }

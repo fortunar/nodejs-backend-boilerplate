@@ -1,6 +1,7 @@
 'use strict';
 
 const users = [{
+  id_user: 1,
   name: 'Joze',
   surname: 'Potrebujes',
   email: 'joze.potrebuje@gmail.com',
@@ -11,6 +12,7 @@ const users = [{
   updatedAt: new Date()
 },
 {
+  id_user: 2,
   name: 'Igor',
   surname: 'Kristofic',
   email: 'igor.kristofic@gmail.com',

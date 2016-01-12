@@ -1,11 +1,13 @@
 'use strict';
 
 const currencies = [{
+  id_currency: 1,
   symbol: '$',
   createdAt: new Date(),
   updatedAt: new Date()
 },
   {
+    id_currency: 2,
     symbol: '€',
     createdAt: new Date(),
     updatedAt: new Date()

@@ -28,6 +28,10 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.DATE,
             field: "updatedAt",
             allowNull: false
+        },
+        location: {
+            type: DataTypes.STRING,
+            field: "location"
         }
     }, {
         schema: "public",
