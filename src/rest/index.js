@@ -33,7 +33,7 @@ export default (App, passport)=> {
     res.send("We are aroundSLO!");
   });
 
-  const modelsInitialized = models.init(sequelize);
+  models.init(sequelize);
 
   initializeTransportsREST(epilogue, modelsInitialized);
   initializeUsersREST(epilogue, modelsInitialized);
