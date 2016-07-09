@@ -20,11 +20,11 @@ Production ready example containing technologies **every** REST backend should u
 	 - showcase of intercepting and logging requests
  - Testing of REST endpoints using Chai and Chai Immutable
 
- In order to run the example:
 
-  - Configure access to your PostgreSQL database (in config/config.json)
-  - Configure access to MongoDB database (in config/mongo.config)
-  - Configure Passport credentials for your app (in config/app_config.json)
+In order to run the example:
+- Configure access to your PostgreSQL database (in config/config.json)
+- Configure access to MongoDB database (in config/mongo.config)
+- Configure Passport credentials for your app (in config/app_config.json)
 
 Migrate models into your DB:
 
