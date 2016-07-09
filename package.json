@@ -14,9 +14,9 @@
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive",
     "test:watch": "npm run test -- --watch"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": ["node", "sequelize", "express", "epilogue"],
+  "author": "Rok Fortuna & Urban Marovt",
+  "license": "MIT",
   "devDependencies": {
     "babel-cli": "^6.1.2",
     "babel-core": "^6.1.2",
