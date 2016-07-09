@@ -1,5 +1,5 @@
 # nodejs-backend-boilerplate
-Fully functional NodeJS &amp; Express REST backend showcasing JWT Passport authentication, Winston logging and Sequelize ORM.
+Fully functional NodeJS &amp; Express REST backend showcasing JWT Passport authentication, Winston logging and Sequelize ORM. Not another cluttered boilerplate, only must-haves inlcuded. 
 
 ----------
 Production ready example containing technologies **every** REST backend should use. It is also a showcase of used technologies and their basic usage. 
