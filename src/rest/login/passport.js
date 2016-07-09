@@ -23,7 +23,6 @@ export default (passport) => {
     profileFields   : ['id', 'displayName', 'name', 'emails']
   }, (token, refreshToken, profile, done) => {
     models.User.findOne({ 'where' : {'id_fb' : profile.id }}).then(function(user) {
-      console.log("FINDING USER");
       if(user) {
         return done(null, user);
       } else {

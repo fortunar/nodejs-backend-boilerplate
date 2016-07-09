@@ -12,7 +12,4 @@ const server = http.createServer(App);
 
 server.listen(port);
 
-
-// server.on('error', (error)=> throw error);
  debug_log(`Server listening on port ${port}...`);
-

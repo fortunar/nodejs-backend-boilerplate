@@ -3,8 +3,8 @@ import express from 'express'
 import {createToken} from './../auth'
 
 const createUserCookie = (user, res) => {
-  res.cookie('around_token', createToken(user), {maxAge:10000});
-  res.cookie('around_user_id', user.idUser, {maxAge: 10000});
+  res.cookie('nodejs-backend-boilerplate-token', createToken(user), {maxAge:10000});
+  res.cookie('nodejs-backend-boilerplate-token-id', user.idUser, {maxAge: 10000});
 }
 
 const handleLoginCallbackRedirect = (err, user, res)=> {

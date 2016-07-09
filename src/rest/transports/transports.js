@@ -2,7 +2,6 @@ import {basicAuth, logger} from './../../interceptors';
 import models from './../../../models';
 export const initialize = (epilogue) => {
 
-    console.log(models.isInitialized);
 
     var transports = epilogue.resource({
         model: models.Transport,

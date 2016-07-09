@@ -1,21 +1,5 @@
 'use strict';
 
-
-//id_transport serial NOT NULL,
-//  id_user integer NOT NULL,
-//  id_departure_place integer NOT NULL,
-//  id_arrival_place integer NOT NULL,
-//  departure_time timestamp with time zone NOT NULL,
-//  price real NOT NULL,
-//  id_currency integer NOT NULL,
-//  passangers_number integer NOT NULL,
-//  vehicle_desc character varying(255),
-//  insurence boolean NOT NULL,
-//  additional_info text,
-//  highway boolean NOT NULL,
-//  "createdAt" timestamp with time zone NOT NULL,
-//  "updatedAt" timestamp with time zone NOT NULL,
-
 const transports = [{
     id_user: 1,
     id_departure_place: 1,

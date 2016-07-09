@@ -6,8 +6,7 @@ var initialized = false;
 function init(sequelize) {
     delete module.exports.init; // Destroy itself to prevent repeated calls and clash with a model named 'init'.
     initialized = true;
-    console.log('INIT');
-
+    
     // Import model files and assign them to `model` object.
     models.SequelizeDatum = sequelize.import("./SequelizeData.js");
     models.SequelizeMetum = sequelize.import("./SequelizeMeta.js");

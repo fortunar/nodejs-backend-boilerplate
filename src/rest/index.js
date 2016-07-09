@@ -3,8 +3,6 @@ import Sequelize from 'sequelize';
 import epilogue from 'epilogue';
 import jwt from 'jsonwebtoken';
 
-// import models from '../../models';
-
 import {basicAuth, logger} from './../interceptors';
 import login from './login/login';
 import passportStrategyInit from './login/passport';
@@ -30,13 +28,13 @@ export default (App, passport)=> {
   App.use('/login', login(passport));
 
   App.get('/', (req,res) => {
-    res.send("We are aroundSLO!");
+    res.send("Welcome to nodejs-backend-boilerplate! Everything a backend needs.");
   });
 
   models.init(sequelize);
 
-  initializeTransportsREST(epilogue, modelsInitialized);
-  initializeUsersREST(epilogue, modelsInitialized);
+  initializeTransportsREST(epilogue);
+  initializeUsersREST(epilogue);
   initializeLocationREST(App, sequelize);
 
 }

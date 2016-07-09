@@ -1,4 +1,3 @@
-// import winston from 'winston'
 import winston from 'winston';
 import winstonMongodb from 'winston-mongodb';
 import config from './../config/app_config.json';
